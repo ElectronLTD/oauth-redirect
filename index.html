@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OAuth2 Redirect</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #666;
+        }
+        .code {
+            background: #eee;
+            padding: 10px;
+            border-radius: 4px;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>OAuth2 Redirect Success</h1>
+        <p>Your authorization was successful!</p>
+        <p>Authorization Code:</p>
+        <pre class="code" id="auth-code">Waiting for code...</pre>
+    </div>
+    <script>
+        // Extract the authorization code from the URL
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        var authCode = getParameterByName('code');
+        if (authCode) {
+            document.getElementById('auth-code').textContent = authCode;
+        }
+    </script>
+</body>
+</html>
